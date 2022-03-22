@@ -22,19 +22,19 @@ def setup_docker():
 
 
 def setup_ss():
-    os.system("sudo docker pull shadowsocks/shadowsocks-libev")
+    os.system("sudo docker pull shadowsocks/shadowsocks-libev:v3.3.5")
     try:
         os.system("sudo docker stop ss -t 1")
         os.system("sudo docker rm ss -f")
     except Exception:
         pass
     os.system("sudo docker run -it -v /opt/docker/git-repo/web:/opt/docker/git-repo/web --net=host " +
-              "--name ss -d shadowsocks/shadowsocks-libev " +
+              "--name ss -d shadowsocks/shadowsocks-libev:v3.3.5 " +
               "ss-manager --manager-address /tmp/shadowsocks-manager.sock -c /opt/docker/git-repo/web/ss-manager.json -D /tmp")
 
 
 def setup_nginx():
-    os.system("sudo docker pull nginx")
+    os.system("sudo docker pull nginx:1.21.6")
     try:
         os.system("sudo docker stop nginx -t 1")
         os.system("sudo docker rm nginx -f")
@@ -42,7 +42,7 @@ def setup_nginx():
         pass
     os.system("sudo docker run -it -v /opt/docker/git-repo/web:/opt/docker/git-repo/web " +
               "-v /var/log/nginx:/var/log/nginx --net=host " +
-              "--name nginx -d nginx " +
+              "--name nginx -d nginx:1.21.6 " +
               "nginx -g 'daemon off;' -c /opt/docker/git-repo/web/nginx-default.conf")
 
 
