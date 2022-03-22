@@ -2,7 +2,6 @@
 import sys
 import os
 import getpass
-import shutil
 
 
 GV_git_docker_path = "/opt/docker"
