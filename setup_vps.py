@@ -43,7 +43,7 @@ def setup_nginx():
     os.system("sudo docker run -it -v /opt/docker/git-repo/web:/opt/docker/git-repo/web " +
               "-v /var/log/nginx:/var/log/nginx --net=host " +
               "--name nginx -d nginx " +
-              "nginx -c /opt/docker/git-repo/web/nginx-default.conf")
+              "nginx -g 'daemon off;' -c /opt/docker/git-repo/web/nginx-default.conf")
 
 
 def main():
