@@ -2,6 +2,10 @@
 import sys
 import os
 
+GV_git_docker_path = "/opt/docker"
+GV_git_repo_path = GV_git_docker_path + "/git-repo"
+GV_git_vps_files_path = GV_git_repo_path + "/vps-files/.git"
+
 
 def check_python_version():
     if sys.version_info[0] < 3:
@@ -22,28 +26,32 @@ def setup_docker():
 
 
 def setup_ss():
+    global GV_git_vps_files_path
     os.system("sudo docker pull shadowsocks/shadowsocks-libev:v3.3.5")
     try:
         os.system("sudo docker stop ss -t 1")
         os.system("sudo docker rm ss -f")
     except Exception:
         pass
-    os.system("sudo docker run -it -v /opt/docker/git-repo/web:/opt/docker/git-repo/web --net=host " +
-              "--name ss -d shadowsocks/shadowsocks-libev:v3.3.5 " +
-              "ss-manager --manager-address /tmp/shadowsocks-manager.sock -c /opt/docker/git-repo/web/ss-manager.json -D /tmp")
+    cmd = "sudo docker run -it -v " + GV_git_vps_files_path + ":" + GV_git_vps_files_path + " --net=host " + \
+    "--name ss -d shadowsocks/shadowsocks-libev:v3.3.5 " + \
+    "ss-manager --manager-address /tmp/shadowsocks-manager.sock -c " + GV_git_vps_files_path + "/ss-manager.json -D /tmp"
+    os.system(cmd)
 
 
 def setup_nginx():
+    global GV_git_vps_files_path
     os.system("sudo docker pull nginx:1.21.6")
     try:
         os.system("sudo docker stop nginx -t 1")
         os.system("sudo docker rm nginx -f")
     except Exception:
         pass
-    os.system("sudo docker run -it -v /opt/docker/git-repo/web:/opt/docker/git-repo/web " +
-              "-v /var/log/nginx:/var/log/nginx --net=host " +
-              "--name nginx -d nginx:1.21.6 " +
-              "nginx -g 'daemon off;' -c /opt/docker/git-repo/web/nginx-default.conf")
+    cmd = "sudo docker run -it -v " + GV_git_vps_files_path + ":" + GV_git_vps_files_path + " " + \
+    "-v /var/log/nginx:/var/log/nginx --net=host " + \
+    "--name nginx -d nginx:1.21.6 " + \
+    "nginx -g 'daemon off;' -c " + GV_git_vps_files_path + "/nginx-default.conf"
+    os.system(cmd)
 
 
 def main():
