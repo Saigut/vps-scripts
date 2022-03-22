@@ -4,7 +4,7 @@ import os
 
 GV_git_docker_path = "/opt/docker"
 GV_git_repo_path = GV_git_docker_path + "/git-repo"
-GV_git_vps_files_path = GV_git_repo_path + "/vps-files/.git"
+GV_git_vps_files_path = GV_git_repo_path + "/vps-files"
 
 
 def check_python_version():

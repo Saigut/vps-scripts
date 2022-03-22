@@ -23,8 +23,8 @@ def check_python_version():
 def setup_web_repo():
     global GV_git_docker_path
     global GV_git_repo_path
-    git_vps_files_path = GV_git_repo_path + "/vps-files/.git"
-    post_receive_path = git_vps_files_path + "/hooks/post-receive"
+    git_vps_files_repo_path = GV_git_repo_path + "/vps-files/.git"
+    post_receive_path = git_vps_files_repo_path + "/hooks/post-receive"
 
     post_receive_content = """#!/bin/bash
     CUR_DIR=`pwd`/`dirname "$0"`
@@ -32,12 +32,12 @@ def setup_web_repo():
     """
 
     # mkdir
-    os.system("sudo mkdir -p " + git_vps_files_path)
+    os.system("sudo mkdir -p " + git_vps_files_repo_path)
     chown_dir_to_current_user(GV_git_docker_path)
 
     # setup web git repo (branch: main)
-    os.system("git --git-dir=" + git_vps_files_path + " init --bare")
-    os.system("git --git-dir=" + git_vps_files_path + " symbolic-ref HEAD refs/heads/main")
+    os.system("git --git-dir=" + git_vps_files_repo_path + " init --bare")
+    os.system("git --git-dir=" + git_vps_files_repo_path + " symbolic-ref HEAD refs/heads/main")
 
     # write post-receive file
     f = open(post_receive_path, 'w')
