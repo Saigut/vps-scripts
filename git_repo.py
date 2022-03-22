@@ -22,6 +22,7 @@ def check_python_version():
 
 
 def setup_web_repo():
+    global GV_git_docker_path
     global GV_git_repo_path
     git_web_path = GV_git_repo_path + "/web/.git"
     post_receive_path = git_web_path + "/hooks/post-receive"
@@ -33,7 +34,7 @@ def setup_web_repo():
 
     # mkdir
     os.system("sudo mkdir -p " + git_web_path)
-    chown_dir_to_current_user(git_web_path)
+    chown_dir_to_current_user(GV_git_docker_path)
 
     # setup web git repo (branch: main)
     os.system("git --git-dir=" + git_web_path + " init --bare")
