@@ -25,7 +25,7 @@ def setup_ss():
     os.system("sudo docker pull shadowsocks/shadowsocks-libev")
     try:
         os.system("sudo docker stop ss -t 1")
-        os.system("sudo docker rm ss f")
+        os.system("sudo docker rm ss -f")
     except Exception:
         pass
     os.system("sudo docker run -it -v /opt/docker/git-repo/web:/opt/docker/git-repo/web --net=host " +
@@ -37,7 +37,7 @@ def setup_nginx():
     os.system("sudo docker pull nginx")
     try:
         os.system("sudo docker stop nginx -t 1")
-        os.system("sudo docker rm nginx f")
+        os.system("sudo docker rm nginx -f")
     except Exception:
         pass
     os.system("sudo docker run -it -v /opt/docker/git-repo/web:/opt/docker/git-repo/web " +
