@@ -54,11 +54,27 @@ def setup_nginx():
     os.system(cmd)
 
 
+def setup_v2ray():
+    global GV_git_vps_files_path
+    os.system("sudo docker pull v2fly/v2fly-core:v4.44.0")
+    try:
+        os.system("sudo docker stop v2ray -t 1")
+        os.system("sudo docker rm v2ray -f")
+    except Exception:
+        pass
+    cmd = "sudo docker run -it -v " + GV_git_vps_files_path + ":" + GV_git_vps_files_path + " " + \
+    "-v /var/log/v2ray:/var/log/v2ray --net=host " + \
+    "--name v2ray -d v2fly/v2fly-core:v4.44.0 " + \
+    "v2ray -c " + GV_git_vps_files_path + "/v2ray-config.json"
+    os.system(cmd)
+
+
 def main():
     check_python_version()
     setup_docker()
     setup_ss()
     setup_nginx()
+    setup_v2ray()
 
 
 main()
