@@ -14,6 +14,18 @@ def check_python_version():
         raise Exception("Python 3.2 or a more recent version is required.")
 
 
+def exec_sh_ignore_err(cmd):
+    try:
+        os.system(cmd)
+    except Exception:
+        pass
+
+
+def exec_personal_script():
+    global GV_git_vps_files_path
+    exec_sh_ignore_err("/bin/bash " + GV_git_vps_files_path + "/personal_setup.sh")
+
+
 def setup_docker():
     cmd = """sudo apt-get update && \
         sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common && \
@@ -28,11 +40,8 @@ def setup_docker():
 def setup_ss():
     global GV_git_vps_files_path
     os.system("sudo docker pull shadowsocks/shadowsocks-libev:v3.3.5")
-    try:
-        os.system("sudo docker stop ss -t 1")
-        os.system("sudo docker rm ss -f")
-    except Exception:
-        pass
+    exec_sh_ignore_err("sudo docker stop ss -t 1")
+    exec_sh_ignore_err("sudo docker rm ss -f")
     cmd = "sudo docker run -it -v " + GV_git_vps_files_path + ":" + GV_git_vps_files_path + " --net=host " + \
     "--name ss -d shadowsocks/shadowsocks-libev:v3.3.5 " + \
     "ss-manager --manager-address /tmp/shadowsocks-manager.sock -c " + GV_git_vps_files_path + "/ss-manager.json -D /tmp"
@@ -42,11 +51,8 @@ def setup_ss():
 def setup_nginx():
     global GV_git_vps_files_path
     os.system("sudo docker pull nginx:1.21.6")
-    try:
-        os.system("sudo docker stop nginx -t 1")
-        os.system("sudo docker rm nginx -f")
-    except Exception:
-        pass
+    exec_sh_ignore_err("sudo docker stop nginx -t 1")
+    exec_sh_ignore_err("sudo docker rm nginx -f")
     cmd = "sudo docker run -it -v " + GV_git_vps_files_path + ":" + GV_git_vps_files_path + " " + \
     "-v /var/log/nginx:/var/log/nginx --net=host " + \
     "--name nginx -d nginx:1.21.6 " + \
@@ -57,11 +63,8 @@ def setup_nginx():
 def setup_v2ray():
     global GV_git_vps_files_path
     os.system("sudo docker pull v2fly/v2fly-core:v4.44.0")
-    try:
-        os.system("sudo docker stop v2ray -t 1")
-        os.system("sudo docker rm v2ray -f")
-    except Exception:
-        pass
+    exec_sh_ignore_err("sudo docker stop v2ray -t 1")
+    exec_sh_ignore_err("sudo docker rm v2ray -f")
     cmd = "sudo docker run -it -v " + GV_git_vps_files_path + ":" + GV_git_vps_files_path + " " + \
     "-v /var/log/v2ray:/var/log/v2ray --net=host " + \
     "--name v2ray -d v2fly/v2fly-core:v4.44.0 " + \
@@ -71,6 +74,7 @@ def setup_v2ray():
 
 def main():
     check_python_version()
+    exec_personal_script()
     setup_docker()
     setup_ss()
     setup_nginx()
