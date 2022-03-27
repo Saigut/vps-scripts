@@ -41,7 +41,7 @@ vps-files/
 |- [other directories or files as you need]
 ```
 Directory `webroot` is the html root of nginx.  
-`personal_setup.sh` is a bash script. You can use it as you need, or just let it a empty script.  
+`personal_setup.sh` is a bash script. You can use it as you need, or just let it an empty script.  
 `ss-manager.json`, `v2ray-config.json`, and `nginx-default.conf` are the configuration file of shadowsocks manager, v2ray, and nginx correspondingly.
 
 ### Log file
