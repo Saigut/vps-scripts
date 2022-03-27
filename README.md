@@ -1,10 +1,12 @@
 # vps-scripts
 The scripts to auto setup your vps with git repo server, shadowsocks, v2ray, and nginx web server.  
-为 vps 自动化配置 git 仓库服务器、shadowsocks、v2ray 和 nginx web 服务器的脚本。
+为 vps 自动化配置 git 仓库服务器、shadowsocks、v2ray 和 nginx web 服务器的脚本。  
+
+***(Caution: The commands to install docker only work under Ubuntu)***
 
 ## Brief introduction
 1. Auto setup your vps by scripts;
-2. All the configuration files managed by git repository;
+2. All the configuration files are managed by git repository;
 3. Shadowsocks, v2ray, and nginx run as docker container.
 
 ## How to use
@@ -18,7 +20,7 @@ The scripts to auto setup your vps with git repo server, shadowsocks, v2ray, and
     And then a git bare repository will be generated at path `/opt/docker/git-repo/vps-files` (In fact is the `.git` subdirectory).
 
 2. Push the pre-prepared `vps-files` git repository to vps  
-    Push your `vps-files` git repository to `/opt/docker/git-repo/vps-files` of the vps. (The structure of `vps-files` repository refer to: "").
+    Push your `vps-files` git repository to `/opt/docker/git-repo/vps-files` of the vps. (The structure of `vps-files` repository refer to: [Structure of git repository vps-files](#structure-of-git-repository-vps-files)).
 
 3. Execute personal script and start docker containers.  
     Execute `git_repo.py` on your vps:
@@ -27,7 +29,7 @@ The scripts to auto setup your vps with git repo server, shadowsocks, v2ray, and
     ```
     This script will execute your personal script and then start docker containers (Shadowsocks, v2ray, and nginx).
 
-### Structure of git repository `vps-files` 
+### Structure of git repository vps-files 
 The structure of `vps-files` should be:
 ```
 vps-files/
