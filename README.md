@@ -2,7 +2,7 @@
 The scripts to auto setup your vps with git repo server, shadowsocks, v2ray, and nginx web server.  
 为 vps 自动化配置 git 仓库服务器、shadowsocks、v2ray 和 nginx web 服务器的脚本。  
 
-***(Caution: The commands to install docker only work under Ubuntu)***
+***(Caution: The commands to install docker only work under Ubuntu Linux)***
 
 ## Brief introduction
 1. Auto setup your vps by scripts;
