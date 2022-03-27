@@ -17,13 +17,13 @@ The scripts to auto setup your vps with git repo server, shadowsocks, v2ray, and
     ```shell
     python git_repo.py
     ```
-    And then a git bare repository will be generated at path `/opt/docker/git-repo/vps-files` (In fact is the `.git` subdirectory).
+    And then a git bare repository will be generated at path `/opt/docker/git-repo/vps-files` (In fact at the `.git` subdirectory).
 
 2. Push the pre-prepared `vps-files` git repository to vps  
-    Push your `vps-files` git repository to `/opt/docker/git-repo/vps-files` of the vps. (The structure of `vps-files` repository refer to: [Structure of git repository vps-files](#structure-of-git-repository-vps-files)).
+    Push your `vps-files` git repository to `/opt/docker/git-repo/vps-files/.git` of the vps via ssh. (The structure of `vps-files` repository refer to: [Structure of git repository vps-files](#structure-of-git-repository-vps-files)).
 
 3. Execute personal script and start docker containers.  
-    Execute `git_repo.py` on your vps:
+    Execute `setup_vps.py` on your vps:
     ```shell
     python setup_vps.py
     ```
@@ -44,8 +44,8 @@ Directory `webroot` is the html root of nginx.
 `personal_setup.sh` is a bash script. You can use it as you need, or just let it a empty script.  
 `ss-manager.json`, `v2ray-config.json`, and `nginx-default.conf` are the configuration file of shadowsocks manager, v2ray, and nginx correspondingly.
 
-### Log files
-Log file locations on you vps,  
+### Log file
+Log file locations on vps,  
 v2ray:  
 `/var/log/v2ray`  
 nginx:  
