@@ -47,6 +47,6 @@ Directory `webroot` is the html root of nginx.
 ### Log file
 Log file locations on vps,  
 v2ray:  
-`/var/log/v2ray`  
+`/var/log/v2ray/`  
 nginx:  
-`/var/log/nginx`
+`/var/log/nginx/`
