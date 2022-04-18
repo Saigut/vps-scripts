@@ -62,6 +62,7 @@ def setup_nginx():
 
 def setup_v2ray():
     global GV_git_vps_files_path
+    os.system("sudo timedatectl set-ntp true")
     os.system("sudo docker pull v2fly/v2fly-core:v4.44.0")
     exec_sh_ignore_err("sudo docker stop v2ray -t 1")
     exec_sh_ignore_err("sudo docker rm v2ray -f")
