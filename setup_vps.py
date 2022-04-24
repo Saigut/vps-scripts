@@ -39,11 +39,11 @@ def setup_docker():
 
 def setup_ss():
     global GV_git_vps_files_path
-    os.system("sudo docker pull shadowsocks/shadowsocks-libev:v3.3.5")
+    os.system("sudo docker pull shadowsocks/shadowsocks-libev:edge")
     exec_sh_ignore_err("sudo docker stop ss -t 1")
     exec_sh_ignore_err("sudo docker rm ss -f")
     cmd = "sudo docker run -it -v " + GV_git_vps_files_path + ":" + GV_git_vps_files_path + " --net=host " + \
-    "--name ss -d shadowsocks/shadowsocks-libev:v3.3.5 " + \
+    "--name ss -d shadowsocks/shadowsocks-libev:edge " + \
     "ss-manager --manager-address /tmp/shadowsocks-manager.sock -c " + GV_git_vps_files_path + "/ss-manager.json -D /tmp"
     os.system(cmd)
 
