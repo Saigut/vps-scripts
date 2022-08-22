@@ -37,22 +37,28 @@ def setup_docker():
     os.system(cmd)
 
 
+def setup_ss_stop():
+    exec_sh_ignore_err("sudo docker stop ss -t 1")
+    exec_sh_ignore_err("sudo docker rm ss -f")
+
+
 def setup_ss():
     global GV_git_vps_files_path
     os.system("sudo docker pull shadowsocks/shadowsocks-libev:edge")
-    exec_sh_ignore_err("sudo docker stop ss -t 1")
-    exec_sh_ignore_err("sudo docker rm ss -f")
     cmd = "sudo docker run -it -v " + GV_git_vps_files_path + ":" + GV_git_vps_files_path + " --net=host " + \
     "--name ss -d shadowsocks/shadowsocks-libev:edge " + \
     "ss-manager --manager-address /tmp/shadowsocks-manager.sock -c " + GV_git_vps_files_path + "/ss-manager.json -D /tmp"
     os.system(cmd)
 
 
+def setup_nginx_stop():
+    exec_sh_ignore_err("sudo docker stop nginx -t 1")
+    exec_sh_ignore_err("sudo docker rm nginx -f")
+
+
 def setup_nginx():
     global GV_git_vps_files_path
     os.system("sudo docker pull nginx:1.21.6")
-    exec_sh_ignore_err("sudo docker stop nginx -t 1")
-    exec_sh_ignore_err("sudo docker rm nginx -f")
     cmd = "sudo docker run -it -v " + GV_git_vps_files_path + ":" + GV_git_vps_files_path + " " + \
     "-v /var/log/nginx:/var/log/nginx --net=host " + \
     "--name nginx -d nginx:1.21.6 " + \
@@ -60,12 +66,15 @@ def setup_nginx():
     os.system(cmd)
 
 
+def setup_v2ray_stop():
+    exec_sh_ignore_err("sudo docker stop v2ray -t 1")
+    exec_sh_ignore_err("sudo docker rm v2ray -f")
+
+
 def setup_v2ray():
     global GV_git_vps_files_path
     os.system("sudo timedatectl set-ntp true")
     os.system("sudo docker pull v2fly/v2fly-core:v4.44.0")
-    exec_sh_ignore_err("sudo docker stop v2ray -t 1")
-    exec_sh_ignore_err("sudo docker rm v2ray -f")
     cmd = "sudo docker run -it -v " + GV_git_vps_files_path + ":" + GV_git_vps_files_path + " " + \
     "-v /var/log/v2ray:/var/log/v2ray --net=host " + \
     "--name v2ray -d v2fly/v2fly-core:v4.44.0 " + \
@@ -75,6 +84,11 @@ def setup_v2ray():
 
 def main():
     check_python_version()
+
+    setup_ss_stop()
+    setup_nginx_stop()
+    setup_v2ray_stop()
+
     exec_personal_script()
     setup_docker()
     setup_ss()
